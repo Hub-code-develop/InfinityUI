@@ -10,6 +10,9 @@
         <Version>0.1.0</Version>
         <Description>infinityUI：直角 + 五色的 Avalonia 控件库。Button / IconButton / ToggleSwitch / Card / NavItem / Toast，模板全部自绘，无圆角、无阴影，彩色仅用于错误/警告/成功语义。</Description>
         <Authors>Xlord-Heliukum</Authors>
+        <!-- 包归属（nuget.org 上的组织）由 scripts/set_owner.py 在打包后写入 nuspec 的 <owners>。
+             必须与 Trusted Publishing policy 的 Policy Owner 一致，否则 push 会 403。
+             注：MSBuild 的 PackageOwners / Owners 属性在当前 SDK 下不会写进 nuspec。 -->
         <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Hub-code-develop/InfinityUI</RepositoryUrl>
         <PackageProjectUrl>https://github.com/Hub-code-develop/InfinityUI</PackageProjectUrl>

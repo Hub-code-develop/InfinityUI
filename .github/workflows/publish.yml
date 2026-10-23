@@ -52,6 +52,9 @@ jobs:
           fi
           ls -la artifacts
 
+      - name: 修正包归属（必须与 policy 的 Policy Owner 一致，否则 push 403）
+        run: python3 scripts/set_owner.py artifacts/*.nupkg CodeHub
+
       - name: NuGet login (OIDC → 临时 API Key)
         id: login
         uses: NuGet/login@v1
