@@ -28,13 +28,23 @@ def set_owner(nupkg_path: str, owner: str) -> None:
                 data = source.read(item.filename)
                 if item.filename.lower().endswith(".nuspec"):
                     text = data.decode("utf-8-sig")
+                    # nuspec 的 metadata 子元素有 schema 顺序要求：
+                    # id → version → title → authors → owners → requireLicenseAcceptance → ...
+                    # owners 必须紧跟在 authors 之后；放到 </metadata> 前会被 NuGet 忽略。
                     text = re.sub(r"\s*<owners>.*?</owners>", "", text, flags=re.S)
                     if "<owners>" not in text:
-                        text = text.replace(
-                            "</metadata>",
-                            f"  <owners>{owner}</owners>\n  </metadata>",
-                            1,
-                        )
+                        if "</authors>" in text:
+                            text = text.replace(
+                                "</authors>",
+                                f"</authors>\n    <owners>{owner}</owners>",
+                                1,
+                            )
+                        else:
+                            text = text.replace(
+                                "</metadata>",
+                                f"  <owners>{owner}</owners>\n  </metadata>",
+                                1,
+                            )
                     data = text.encode("utf-8")
                     patched = True
                 target.writestr(item, data)
