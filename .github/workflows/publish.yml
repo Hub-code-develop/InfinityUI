@@ -8,19 +8,26 @@ name: Publish
 #   Environment:      nuget
 
 on:
+  # 主入口：在 GitHub 网页上「Publish release」即完成发版。
+  # GitHub 会自动建 tag、自动按 PR/commit 生成 release notes，版本号从 tag 取。
+  release:
+    types: [published]
+  # 兜底：Actions 里手动跑，可指定版本号（留空用 csproj 的 Version）。
   workflow_dispatch:
     inputs:
       version:
         description: "包版本（留空则用 csproj 里的 Version）"
         required: false
         type: string
-  push:
-    tags:
-      - "v*"
 
 permissions:
   contents: read
   id-token: write # Trusted Publishing 必需：换取 nuget.org 的短期 token
+
+# 发版不并发、不被取消：中途取消会在 nuget.org 留下不完整状态
+concurrency:
+  group: publish
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -42,6 +49,12 @@ jobs:
         run: |
           set -euo pipefail
           VERSION="${{ inputs.version }}"
+          # Release 触发时取 release 的 tag（GitHub 网页发版走这条）
+          if [ -z "$VERSION" ] && [ -n "${{ github.event.release.tag_name }}" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            VERSION="${VERSION#v}"
+          fi
+          # 老路径：直接 push tag
           if [ -z "$VERSION" ] && [[ "${GITHUB_REF_NAME}" == v* ]]; then
             VERSION="${GITHUB_REF_NAME#v}"
           fi
