@@ -1,4 +1,4 @@
-# InfinityUI
+# InfinityUI（NuGet 包名：InfinityUI-CodeHub）
 
 直角 + 五色的 Avalonia 控件库。控件类型与模板全部自绘，不继承任何第三方视觉主题。
 
@@ -11,7 +11,7 @@
 ## 安装
 
 ```xml
-<PackageReference Include="InfinityUI" Version="0.1.0" />
+<PackageReference Include="InfinityUI-CodeHub" Version="0.1.0" />
 ```
 
 ## 接入

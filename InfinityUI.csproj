@@ -6,7 +6,7 @@
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <RootNamespace>InfinityUI</RootNamespace>
         <AssemblyName>InfinityUI</AssemblyName>
-        <PackageId>InfinityUI</PackageId>
+        <PackageId>InfinityUI-CodeHub</PackageId>
         <Version>0.1.0</Version>
         <Description>infinityUI：直角 + 五色的 Avalonia 控件库。Button / IconButton / ToggleSwitch / Card / NavItem / Toast，模板全部自绘，无圆角、无阴影，彩色仅用于错误/警告/成功语义。</Description>
         <Authors>Xlord-Heliukum</Authors>
